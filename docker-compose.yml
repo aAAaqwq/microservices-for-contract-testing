@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # 数据库服务
+
+  postgres-users:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: users
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_users_data:/var/lib/postgresql/data
+    networks:
+      - microservices-network
+
+  postgres-payments:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: payments
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_payments_data:/var/lib/postgresql/data
+    networks:
+      - microservices-network
+
+  mysql-orders:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: orders
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_orders_data:/var/lib/mysql
+    networks:
+      - microservices-network
+
+  mongo-notifications:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_DATABASE: notifications
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_notifications_data:/data/db
+    networks:
+      - microservices-network
+
+  # 应用服务
+  
+
+volumes:
+  postgres_users_data:
+  postgres_payments_data:
+  mongo_notifications_data:
+  mysql_orders_data:
+
+networks:
+  microservices-network:
+    driver: bridge 

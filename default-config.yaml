@@ -1,0 +1,55 @@
+# 配置文件
+
+postgres-user:
+  host: localhost
+  port: 5432
+  user: user
+  password: 123456
+  dbname: users
+user-port: 8081
+
+mysql-order:
+  host: localhost
+  port: 3306
+  user: root
+  password: 123456
+  dbname: orders
+order-port: 8082
+
+postgres-payment:
+  host: localhost
+  port: 5432
+  user: user
+  password: 123456
+  dbname: payments
+payment-port: 8083
+
+mongodb-notification:
+  host: localhost
+  port: 27017
+  database: notifications
+  username: user
+  password: 123456
+notification-port: 8084
+
+redis-notification:
+  host: localhost
+  port: 6379
+  password: 123456
+  db: 0
+
+email:
+  host: smtp.example.com
+  port: 587
+  username: your_username
+  password: your_password
+  from: your_email@example.com
+
+services:
+  user-service-url: localhost:8081
+  order-service-url: localhost:8082
+  payment-service-url: localhost:8083
+  notification-service-url: localhost:8084
+
+
+
