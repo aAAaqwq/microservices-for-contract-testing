@@ -183,9 +183,36 @@
     ```
 
 
-## Keploy Testing
+## 时序图
+![alt text](timeline.png)
+
+## How to run:
+  ```
+  启动DB服务
+  docker compose up -d
+  ```
+  ```
+  分别进入srv目录，执行4个微服务
+  go run main.go
+  ```
 
 
+## Keploy Contract Testing
+  ### 测试数据
+
+
+  
+  ### 测试效率分析
+  1. 服务间依赖捕获
+  2. 异步操作处理
+  3. 数据存储交互
+ 
+  ### 潜在限制
+  1. 外部服务难以模拟:如支付网关,通知网关(SMTP/SMS)
+  2. 时间相关操作难以模拟重现
+  3. 多服务状态同步的复杂性
+  4. 难以重现数据库操作的回滚机制
+  5. keploy模拟生成的合同无法持久化管理
 
 
 
@@ -193,9 +220,20 @@
 - 语言：Go 1.23.3
 - Web框架：Gin
 - 数据库：
-  - PostgreSQL (用户服务、通知服务、支付服务)
-  - MySQL (订单服务)
+  - PostgreSQL
+  - MySQL
+  - Redis
+  - Mongo
 - 容器化：Docker
 - API风格：RESTful
+- 测试框架：Keploy
+- 部署：Docker Compose
 
-## 项目结构
+
+## 可能优化的点
+- 使用gRPC进行微服务间通信，提高吞吐量
+- 使用RocketMQ进行消息队列，提高消息处理效率
+- json处理使用sonic工具，提高性能
+- ID生成使用snowflake算法，提高唯一性
+- QWQ期待您的建议
+
