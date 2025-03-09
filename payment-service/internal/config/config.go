@@ -26,6 +26,7 @@ type DBConfig struct {
 type ServiceConfig struct {
 	OrderServiceURL        string `yaml:"order-service-url"`
 	NotificationServiceURL string `yaml:"notification-service-url"`
+	UserServiceURL         string `yaml:"user-service-url"`
 }
 
 // LoadConfig 加载yaml配置

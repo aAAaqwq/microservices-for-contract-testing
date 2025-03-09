@@ -35,7 +35,7 @@ graph TD
     NotificationService --> Redis
 ```
 ## Timing diagram
-![alt text](timeline.png)
+![alt text](./img/timeline.png)
 
 ## API Details
 ### 1. User Service
@@ -119,7 +119,7 @@ This is a fundamental service providing user registration, query, update, and de
 
   - Cancel Order
     ```
-    POST /api/v1/orders/:id/cancel
+    DELETE /api/v1/orders/:id
     ```
 
 #### Interaction Pattern:

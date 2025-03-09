@@ -3,8 +3,9 @@ package service
 import (
 	"context"
 	"fmt"
-	"net/smtp"
 	"time"
+
+	"gopkg.in/gomail.v2"
 
 	"notification-service/internal/cache"
 	"notification-service/internal/config"
@@ -146,30 +147,25 @@ func (s *NotificationService) processNotification(notification *model.Notificati
 
 // sendEmail 发送邮件
 func (s *NotificationService) sendEmail(notification *model.Notification) error {
-	auth := smtp.PlainAuth("",
+	d := gomail.NewDialer(
+		s.config.Email.Host,
+		s.config.Email.Port,
 		s.config.Email.Username,
 		s.config.Email.Password,
-		s.config.Email.Host,
 	)
+	d.SSL = true
 
-	msg := fmt.Sprintf("To: %s\r\n"+
-		"Subject: %s\r\n"+
-		"Content-Type: text/plain; charset=UTF-8\r\n"+
-		"\r\n"+
-		"%s\r\n",
-		notification.Recipient,
-		notification.Title,
-		notification.Content,
-	)
+	m := gomail.NewMessage()
+	m.SetHeader("From", s.config.Email.From)
+	m.SetHeader("To", notification.Recipient)
+	m.SetHeader("Subject", notification.Title)
+	m.SetBody("text/plain", notification.Content)
+	
+	if err := d.DialAndSend(m); err != nil {
+		return fmt.Errorf("failed to send email: %v", err)
+	}
 
-	addr := fmt.Sprintf("%s:%s", s.config.Email.Host, s.config.Email.Port)
-	return smtp.SendMail(
-		addr,
-		auth,
-		s.config.Email.From,
-		[]string{notification.Recipient},
-		[]byte(msg),
-	)
+	return nil
 }
 
 // sendSMS 发送短信

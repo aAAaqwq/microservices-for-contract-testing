@@ -5,18 +5,24 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
+
+	// "sync"
 	"time"
 
 	"payment-service/internal/config"
 	"payment-service/internal/model"
 	"payment-service/internal/repository"
+
+	"github.com/spf13/cast"
 )
 
 type PaymentService struct {
 	repo   *repository.PaymentRepository
 	config *config.Config
 	client *http.Client
+	// wg     sync.WaitGroup
 }
 
 func NewPaymentService(repo *repository.PaymentRepository, cfg *config.Config) *PaymentService {
@@ -49,6 +55,7 @@ func (s *PaymentService) CreatePayment(req *model.PaymentRequest) (*model.Paymen
 	if err := s.repo.Create(payment); err != nil {
 		return nil, err
 	}
+	// fmt.Println("处理支付前")
 
 	// 异步处理支付
 	go s.processPayment(payment)
@@ -117,8 +124,30 @@ func (s *PaymentService) validateOrder(orderID uint) error {
 
 // processPayment 处理支付
 func (s *PaymentService) processPayment(payment *model.Payment) {
-	// 模拟支付处理
+	// fmt.Println("处理支付中")
+	// 模拟正在支付处理
 	time.Sleep(2 * time.Second)
+
+	err := s.UpdateOrderStatus(payment.OrderID, "processing")
+	if err != nil {
+		log.Printf("%v",err)
+		payment.Status = "failed"
+		payment.UpdatedAt = time.Now()
+		s.repo.Update(payment)
+		return
+	}
+
+	// 模拟支付完成
+	time.Sleep(2 * time.Second)
+
+	err = s.UpdateOrderStatus(payment.OrderID, "completed")
+	if err != nil {
+		log.Printf("%v",err)
+		payment.UpdatedAt = time.Now()
+		payment.Status = "failed"
+		s.repo.Update(payment)
+		return
+	}
 
 	// 生成交易号
 	payment.TradeNo = fmt.Sprintf("T%d%d", payment.ID, time.Now().Unix())
@@ -129,15 +158,41 @@ func (s *PaymentService) processPayment(payment *model.Payment) {
 	if err := s.repo.Update(payment); err != nil {
 		return
 	}
-
 	// 发送通知
 	go s.sendNotification(payment, "payment")
+}
+
+// UpdateOrderStatus 更新订单状态
+func (s *PaymentService) UpdateOrderStatus(orderID uint, status string) error {
+	jsonData, err := json.Marshal(map[string]string{"status": status})
+	if err != nil {
+		return err
+	}
+
+	req, err := http.NewRequest(http.MethodPut, fmt.Sprintf("%s/api/v1/orders/%d/status", s.config.Services.OrderServiceURL, orderID), bytes.NewBuffer(jsonData))
+	if err != nil {
+		return err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := s.client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return errors.New("failed to update order status")
+	}
+
+	return nil
 }
 
 // handleRefund 处理退款
 func (s *PaymentService) handleRefund(payment *model.Payment) error {
 	// 模拟退款处理
 	time.Sleep(2 * time.Second)
+	// 取消订单
+	go s.UpdateOrderStatus(payment.OrderID, "cancelled")
 	return nil
 }
 
@@ -152,18 +207,21 @@ func (s *PaymentService) sendNotification(payment *model.Payment, notifyType str
 		title = fmt.Sprintf("Refund Processed for Order #%d", payment.OrderID)
 		content = fmt.Sprintf("Your refund of %.2f has been processed", payment.Amount)
 	}
+	email:=s.GetUserEmail(payment.UserID)
 
 	notificationReq := map[string]interface{}{
 		"user_id": payment.UserID,
 		"type":    "email",
 		"title":   title,
 		"content": content,
+		"recipient": email,
 	}
 
 	jsonData, err := json.Marshal(notificationReq)
 	if err != nil {
 		return
 	}
+	// fmt.Println(string(jsonData))
 
 	resp, err := http.Post(
 		fmt.Sprintf("%s/api/v1/notifications", s.config.Services.NotificationServiceURL),
@@ -174,4 +232,25 @@ func (s *PaymentService) sendNotification(payment *model.Payment, notifyType str
 		return
 	}
 	defer resp.Body.Close()
+}
+
+// GetUserEmail 获取用户邮箱
+func (s *PaymentService) GetUserEmail(userID uint) string {
+	resp, err := http.Get(fmt.Sprintf("%s/api/v1/users/%d", s.config.Services.UserServiceURL, userID))
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	userInfo := map[string]interface{}{
+		"email": "",
+		"username": "",
+		"id": 0,
+	}
+	err = json.NewDecoder(resp.Body).Decode(&userInfo)
+	if err != nil {
+		return ""
+	}
+	// fmt.Println(userInfo)
+	return cast.ToString(userInfo["email"])
 }

@@ -1,0 +1,13 @@
+🐰 Keploy: 2025-03-09T16:28:10+08:00 	[34mINFO[0m	keploy initialized and probes added to the kernel.
+🐰 Keploy: 2025-03-09T16:28:11+08:00 	[34mINFO[0m	starting UDP DNS server at addr :26789
+🐰 Keploy: 2025-03-09T16:28:11+08:00 	[34mINFO[0m	starting TCP DNS server at addr :26789
+🐰 Keploy: 2025-03-09T16:28:11+08:00 	[34mINFO[0m	Keploy has taken control of the DNS resolution mechanism, your application may misbehave if you have provided wrong domain name in your application code.
+🐰 Keploy: 2025-03-09T16:28:11+08:00 	[34mINFO[0m	Proxy started at port:16789
+🐰 Keploy: 2025-03-09T16:28:14+08:00 	[33mWARN[0m	Malformed request	{"ExpectedRecvBytes": 0, "ActualRecvBytes": 0}
+🐰 Keploy: 2025-03-09T16:28:14+08:00 	[33mWARN[0m	failed processing a request due to invalid request or response	{"Request Size": 0, "Response Size": 109}
+🐰 Keploy: 2025-03-09T16:28:14+08:00 	[31mERROR[0m	failed to decode the MySQL packet from the client	{"Client IP Address": "127.0.0.1:50810", "Client ConnectionID": "0", "Destination ConnectionID": "1", "error": "failed to decode packet: failed to decode COM_STMT_EXECUTE packet: unexpected EOF"}
+🐰 Keploy: 2025-03-09T16:28:14+08:00 	[31mERROR[0m	failed to handle client queries	{"Client IP Address": "127.0.0.1:50810", "Client ConnectionID": "0", "Destination ConnectionID": "1", "error": "failed to decode packet: failed to decode COM_STMT_EXECUTE packet: unexpected EOF"}
+🐰 Keploy: 2025-03-09T16:28:14+08:00 	[31mERROR[0m	failed to encode the mysql message into the yaml	{"Client IP Address": "127.0.0.1:50810", "Client ConnectionID": "0", "Destination ConnectionID": "1", "error": "failed to decode packet: failed to decode COM_STMT_EXECUTE packet: unexpected EOF"}
+🐰 Keploy: 2025-03-09T16:28:14+08:00 	[31mERROR[0m	failed to record the outgoing message	{"error": "failed to decode packet: failed to decode COM_STMT_EXECUTE packet: unexpected EOF"}
+🐰 Keploy: 2025-03-09T16:28:14+08:00 	[31mERROR[0m	failed to handle the client connection	{"error": "failed to decode packet: failed to decode COM_STMT_EXECUTE packet: unexpected EOF"}
+🐰 Keploy: 2025-03-09T16:28:16+08:00 	[34mINFO[0m	🟠 Keploy has captured test cases for the user's application.	{"path": "/home/aa/公共/GoProgram/GSOC/microservices-for-contract-testing/order-service/keploy/test-set-6/tests", "testcase name": "test-1"}

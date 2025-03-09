@@ -136,12 +136,14 @@ func (s *OrderService) createPayment(order *model.Order) {
 		"order_id": order.ID,
 		"user_id":  order.UserID,
 		"amount":   order.TotalAmount,
+		"payment_type": "wechat",//默认模拟wechat支付
 	}
 
 	jsonData, err := json.Marshal(paymentReq)
 	if err != nil {
 		return
 	}
+	// fmt.Println(string(jsonData))
 
 	resp, err := http.Post(
 		fmt.Sprintf("%s/api/v1/payments", s.config.Services.PaymentServiceURL),

@@ -18,7 +18,7 @@ order-port: 8082
 
 postgres-payment:
   host: localhost
-  port: 5432
+  port: 5433
   user: user
   password: 123456
   dbname: payments
@@ -39,17 +39,17 @@ redis-notification:
   db: 0
 
 email:
-  host: smtp.example.com
-  port: 587
-  username: your_username
-  password: your_password
-  from: your_email@example.com
+  host: smtp.qq.com
+  port: 465
+  username: danielli1@qq.com
+  password: zgpnprkpkggzfcei
+  from: danielli1@qq.com
 
 services:
-  user-service-url: localhost:8081
-  order-service-url: localhost:8082
-  payment-service-url: localhost:8083
-  notification-service-url: localhost:8084
+  user-service-url: http://localhost:8081
+  order-service-url: http://localhost:8082
+  payment-service-url: http://localhost:8083
+  notification-service-url: http://localhost:8084
 
 
 

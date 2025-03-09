@@ -54,6 +54,17 @@ services:
     networks:
       - microservices-network
 
+  redis-notifications:
+    image: redis:latest
+    command: redis-server --requirepass 123456
+    environment:
+      REDIS_PASSWORD: 123456
+      REDIS_DB: 0
+    ports:
+      - "6379:6379"
+    networks:
+      - microservices-network
+
   # 应用服务
   
 

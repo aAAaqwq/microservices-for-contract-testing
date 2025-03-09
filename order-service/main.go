@@ -42,7 +42,7 @@ func main() {
 
 func setupDatabase(cfg *config.Config) (*gorm.DB, error) {
 	// MySQL的DSN格式
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&autocommit=true",
 		cfg.DB.User,
 		cfg.DB.Password,
 		cfg.DB.Host,
@@ -50,7 +50,10 @@ func setupDatabase(cfg *config.Config) (*gorm.DB, error) {
 		cfg.DB.DBName,
 	)
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		PrepareStmt: true,
+	})
+	
 	if err != nil {
 		return nil, err
 	}
