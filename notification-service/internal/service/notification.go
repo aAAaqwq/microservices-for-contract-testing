@@ -18,6 +18,7 @@ type NotificationService struct {
 	cache   *cache.NotificationCache
 	config  *config.Config
 	workers chan struct{} // 用于限制并发的worker数量
+	done    chan struct{} // 添加用于控制worker关闭的通道
 }
 
 func NewNotificationService(repo *repository.NotificationRepository, cache *cache.NotificationCache, cfg *config.Config) *NotificationService {
@@ -26,7 +27,13 @@ func NewNotificationService(repo *repository.NotificationRepository, cache *cach
 		cache:   cache,
 		config:  cfg,
 		workers: make(chan struct{}, 10), // 最多10个并发worker
+		done:    make(chan struct{}),     // 初始化done通道
 	}
+}
+
+// Done 返回用于监听服务关闭的通道
+func (s *NotificationService) Done() <-chan struct{} {
+	return s.done
 }
 
 // CreateNotification 创建通知
@@ -118,10 +125,12 @@ func (s *NotificationService) BatchCreateNotifications(ctx context.Context, req 
 // processNotification 处理通知发送
 func (s *NotificationService) processNotification(notification *model.Notification) {
 	// 获取worker令牌
-	s.workers <- struct{}{}
-	defer func() {
-		<-s.workers // 释放令牌
-	}()
+	select {
+	case s.workers <- struct{}{}: // 获取令牌
+		defer func() { <-s.workers }() // 释放令牌
+	case <-s.done: // 服务正在关闭
+		return
+	}
 
 	var err error
 	switch notification.Type {
@@ -139,9 +148,15 @@ func (s *NotificationService) processNotification(notification *model.Notificati
 		fmt.Printf("Failed to send notification: %v\n", err)
 	}
 
-	ctx := context.Background()
-	if err := s.repo.UpdateStatus(ctx, notification.ID.Hex(), status); err != nil {
-		fmt.Printf("Failed to update notification status: %v\n", err)
+	// 检查服务是否正在关闭
+	select {
+	case <-s.done:
+		return
+	default:
+		ctx := context.Background()
+		if err := s.repo.UpdateStatus(ctx, notification.ID.Hex(), status); err != nil {
+			fmt.Printf("Failed to update notification status: %v\n", err)
+		}
 	}
 }
 
@@ -160,7 +175,7 @@ func (s *NotificationService) sendEmail(notification *model.Notification) error 
 	m.SetHeader("To", notification.Recipient)
 	m.SetHeader("Subject", notification.Title)
 	m.SetBody("text/plain", notification.Content)
-	
+
 	if err := d.DialAndSend(m); err != nil {
 		return fmt.Errorf("failed to send email: %v", err)
 	}
@@ -176,6 +191,13 @@ func (s *NotificationService) sendSMS(notification *model.Notification) error {
 
 // ProcessQueuedNotification 处理队列中的通知
 func (s *NotificationService) ProcessQueuedNotification(ctx context.Context) (*model.Notification, error) {
+	// 检查服务是否正在关闭
+	select {
+	case <-s.done:
+		return nil, fmt.Errorf("service is shutting down")
+	default:
+	}
+
 	// 从队列获取通知
 	notification, err := s.cache.GetFromQueue(ctx)
 	if err != nil {
@@ -189,4 +211,9 @@ func (s *NotificationService) ProcessQueuedNotification(ctx context.Context) (*m
 	s.processNotification(notification)
 
 	return notification, nil
+}
+
+// Stop 停止服务
+func (s *NotificationService) Stop() {
+	close(s.done)
 }

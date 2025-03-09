@@ -241,7 +241,7 @@ The notification service handles all notification sending functionalities in the
 #### Testing
 Each service includes contract tests using Keploy. To run the tests:
 1. Navigate to the service directory
-2. Run `go test ./...`
+2. Run `keploy test -c "go run ." -d 10`
 
 #### Test efficiency analysis
 1. Capture dependencies between services
