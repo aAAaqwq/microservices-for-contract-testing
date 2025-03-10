@@ -205,15 +205,16 @@
   ### 测试效率分析
   1. 本地服务间依赖捕获
   2. 异步操作处理
-  3. 数据库存储交互
+  3. 数据库存储交互模拟
+  
  
   ### 潜在限制
   1. 难以同时record多个服务
   2. 时间相关操作难以模拟重现
-  3. 多服务状态同步的复杂性
-  4. 难以重现数据库操作的回滚机制
-  5. keploy模拟生成的合同无法持久化管理
-  6. keploy无法调用和记录第三方服务调用如smtp.
+  3. keploy模拟生成的合同无法持久化管理
+  4. keploy无法模拟外部服务调用如smtp.
+  5. 动态ID生成 → 响应体长度变化 → Content-Length不匹配 → 测试断言失败
+  6. 时间戳时区差异 → 字符串长度波动 → 响应体字节数变化 → 头部校验失败
 
 
 
@@ -231,10 +232,10 @@
 - 部署：Docker Compose
 
 
-## 可能优化的点
-- 使用gRPC进行微服务间通信，提高吞吐量
-- 使用RocketMQ进行消息队列，提高消息处理效率
-- json处理使用sonic工具，提高性能
-- ID生成使用snowflake算法，提高唯一性
-- QWQ期待您的建议
+## Possible optimization points for microservices
+- Use gRPC for communication between microservices to improve throughput
+- Use RocketMQ for message queues to improve message processing efficiency
+- Use sonic tools for json processing to improve performance
+- Use snowflake algorithm for ID generation to improve uniqueness
+- ....
 
