@@ -5,49 +5,39 @@ name: test-3
 spec:
     metadata: {}
     req:
-        method: POST
+        method: PUT
         proto_major: 1
         proto_minor: 1
-        url: http://192.168.153.128:8082/api/v1/orders
+        url: http://localhost:8082/api/v1/orders/2/status
         header:
-            Accept: '*/*'
-            Accept-Encoding: gzip, deflate, br
-            Account: "2067089451"
-            Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDY3MDg5NDUxIiwiYXVkIjoi5pmu6YCa55So5oi3IiwiaXNzIjoiQV9hIiwiZXhwIjoxNzE1MTcxMjY3fQ.f0rrG6zfk8bG56vXWV68bgOJgUpsorSXvkV9Vv19iUE
-            Connection: keep-alive
-            Content-Length: "155"
+            Accept-Encoding: gzip
+            Content-Length: "23"
             Content-Type: application/json
-            Host: 192.168.153.128:8082
-            User-Agent: Apifox/1.0.0 (https://apifox.com)
-            Username: A_a
-        body: "{\r\n    \"user_id\": 1,\r\n    \"items\": [\r\n        {\r\n            \"name\": \"汉堡包\",\r\n            \"price\": 11,\r\n            \"quantity\": 6\r\n        }\r\n    ]\r\n}"
-        timestamp: 2025-03-08T20:59:19.930441007+08:00
+            Host: localhost:8082
+            User-Agent: Go-http-client/1.1
+        body: '{"status":"processing"}'
+        timestamp: 2025-03-09T20:49:48.870909647+08:00
     resp:
-        status_code: 500
+        status_code: 200
         header:
-            Content-Length: "106"
+            Content-Length: "34"
             Content-Type: application/json; charset=utf-8
-            Date: Sat, 08 Mar 2025 12:59:19 GMT
-        body: '{"error":"invalid user: Get \"localhost:8081/api/v1/users/1\": unsupported protocol scheme \"localhost\""}'
-        status_message: Internal Server Error
+            Date: Sun, 09 Mar 2025 12:49:48 GMT
+        body: '{"message":"order status updated"}'
+        status_message: OK
         proto_major: 0
         proto_minor: 0
-        timestamp: 2025-03-08T20:59:21.972762808+08:00
+        timestamp: 2025-03-09T20:49:50.926200082+08:00
     objects: []
     assertions:
         noise:
             header.Date: []
-    created: 1741438761
+    created: 1741524590
 curl: |-
-    curl --request POST \
-      --url http://192.168.153.128:8082/api/v1/orders \
-      --header 'User-Agent: Apifox/1.0.0 (https://apifox.com)' \
-      --header 'Username: A_a' \
-      --header 'Account: 2067089451' \
-      --header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDY3MDg5NDUxIiwiYXVkIjoi5pmu6YCa55So5oi3IiwiaXNzIjoiQV9hIiwiZXhwIjoxNzE1MTcxMjY3fQ.f0rrG6zfk8bG56vXWV68bgOJgUpsorSXvkV9Vv19iUE' \
-      --header 'Host: 192.168.153.128:8082' \
+    curl --request PUT \
+      --url http://localhost:8082/api/v1/orders/2/status \
       --header 'Content-Type: application/json' \
-      --header 'Connection: keep-alive' \
-      --header 'Accept: */*' \
-      --header 'Accept-Encoding: gzip, deflate, br' \
-      --data "{\r\n    \"user_id\": 1,\r\n    \"items\": [\r\n        {\r\n            \"name\": \"汉堡包\",\r\n            \"price\": 11,\r\n            \"quantity\": 6\r\n        }\r\n    ]\r\n}"
+      --header 'Accept-Encoding: gzip' \
+      --header 'Host: localhost:8082' \
+      --header 'User-Agent: Go-http-client/1.1' \
+      --data "{\"status\":\"processing\"}"

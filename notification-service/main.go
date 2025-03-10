@@ -30,7 +30,7 @@ func GracefulShutdown(ctx context.Context, timeout time.Duration, hooks ...Hook)
 	// 创建通知通道
 	quit := make(chan os.Signal, 1)
 	// 监听中断信号
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM,syscall.SIGQUIT)
 	<-quit
 	log.Println("Shutting down server...")
 

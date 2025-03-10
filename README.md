@@ -234,7 +234,7 @@ The notification service handles all notification sending functionalities in the
 
 ### Installation
 1. Clone the repository
-2. Run `docker-compose up` to start all services
+2. Run `docker compose up` to start all db-services
 3. Each service can also be run independently using their respective Dockerfiles or `go run main.go`
 
 ### Keploy Contract Testing
@@ -242,6 +242,13 @@ The notification service handles all notification sending functionalities in the
 Each service includes contract tests using Keploy. To run the tests:
 1. Navigate to the service directory
 2. Run `keploy test -c "go run ." -d 10`
+3. If you want to see test coverage, run `keploy test -c ./<service-name> -d 10`
+   
+#### My testing data
+![alt text](./img/user-srv.png)
+![alt text](./img/order-srv.png)
+![alt text](./img/payment-srv.png)
+![alt text](./img/notification-srv.png)
 
 #### Test efficiency analysis
 1. Capture dependencies between services
