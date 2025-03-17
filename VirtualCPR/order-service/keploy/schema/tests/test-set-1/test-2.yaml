@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+    title: test-2
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: localhost:8082
+paths:
+    /api/v1/orders/{param1}:
+        get:
+            summary: Auto-generated operation
+            description: Auto-generated from custom format
+            parameters:
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip
+                - name: Host
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: localhost:8082
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Go-http-client/1.1
+                - name: param1
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  example: "2"
+            operationId: e4a6f2d848d4ebed5b1de6029f6b584c-20250317211642
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    created_at:
+                                        type: string
+                                    id:
+                                        type: number
+                                    items:
+                                        items:
+                                            properties:
+                                                id:
+                                                    type: number
+                                                name:
+                                                    type: string
+                                                order_id:
+                                                    type: number
+                                                price:
+                                                    type: number
+                                                quantity:
+                                                    type: number
+                                            type: object
+                                        type: array
+                                    status:
+                                        type: string
+                                    total_amount:
+                                        type: number
+                                    updated_at:
+                                        type: string
+                                    user_id:
+                                        type: number
+                            example:
+                                created_at: "2025-03-09T12:49:46.831Z"
+                                id: 2
+                                items:
+                                    - id: 2
+                                      name: beef hamberger
+                                      order_id: 2
+                                      price: 11
+                                      quantity: 6
+                                status: pending
+                                total_amount: 66
+                                updated_at: "2025-03-09T12:49:46.832Z"
+                                user_id: 6
+components: {}

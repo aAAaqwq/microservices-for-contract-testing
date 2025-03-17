@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+    title: test-1
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: 192.168.153.128:8082
+paths:
+    /api/v1/orders:
+        post:
+            summary: Auto-generated operation
+            description: Auto-generated from custom format
+            parameters:
+                - name: Account
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "2067089451"
+                - name: Content-Length
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "160"
+                - name: Content-Type
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: application/json
+                - name: Host
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: 192.168.153.128:8082
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Apifox/1.0.0 (https://apifox.com)
+                - name: Username
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: A_a
+                - name: Accept
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: '*/*'
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip, deflate, br
+                - name: Authorization
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDY3MDg5NDUxIiwiYXVkIjoi5pmu6YCa55So5oi3IiwiaXNzIjoiQV9hIiwiZXhwIjoxNzE1MTcxMjY3fQ.f0rrG6zfk8bG56vXWV68bgOJgUpsorSXvkV9Vv19iUE
+                - name: Connection
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: keep-alive
+            operationId: c578fd9872178b10bed1848dc06cc8e5-20250317211642
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                items:
+                                    items:
+                                        properties:
+                                            name:
+                                                type: string
+                                            price:
+                                                type: number
+                                            quantity:
+                                                type: number
+                                        type: object
+                                    type: array
+                                user_id:
+                                    type: number
+                        example:
+                            items:
+                                - name: beef hamberger
+                                  price: 11
+                                  quantity: 6
+                            user_id: 6
+            responses:
+                "201":
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    created_at:
+                                        type: string
+                                    id:
+                                        type: number
+                                    items:
+                                        items:
+                                            properties:
+                                                id:
+                                                    type: number
+                                                name:
+                                                    type: string
+                                                order_id:
+                                                    type: number
+                                                price:
+                                                    type: number
+                                                quantity:
+                                                    type: number
+                                            type: object
+                                        type: array
+                                    status:
+                                        type: string
+                                    total_amount:
+                                        type: number
+                                    updated_at:
+                                        type: string
+                                    user_id:
+                                        type: number
+                            example:
+                                created_at: "2025-03-09T20:49:46.830671228+08:00"
+                                id: 2
+                                items:
+                                    - id: 2
+                                      name: beef hamberger
+                                      order_id: 2
+                                      price: 11
+                                      quantity: 6
+                                status: pending
+                                total_amount: 66
+                                updated_at: "2025-03-09T20:49:46.832+08:00"
+                                user_id: 6
+components: {}

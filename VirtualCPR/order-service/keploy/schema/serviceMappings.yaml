@@ -1,0 +1,7 @@
+servicesMapping:
+    notification-srv: []
+    payment-srv:
+        - /api/v1/payments
+    user-srv:
+        - /api/v1/users/*
+self: order-srv

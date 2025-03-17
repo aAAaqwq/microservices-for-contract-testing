@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+    title: test-8
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: 192.168.153.128:8084
+paths:
+    /api/v1/notifications/batch:
+        post:
+            summary: Auto-generated operation
+            description: Auto-generated from custom format
+            parameters:
+                - name: Username
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: A_a
+                - name: Authorization
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDY3MDg5NDUxIiwiYXVkIjoi5pmu6YCa55So5oi3IiwiaXNzIjoiQV9hIiwiZXhwIjoxNzE1MTcxMjY3fQ.f0rrG6zfk8bG56vXWV68bgOJgUpsorSXvkV9Vv19iUE
+                - name: Connection
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: keep-alive
+                - name: Content-Length
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "253"
+                - name: Content-Type
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: application/json
+                - name: Host
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: 192.168.153.128:8084
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Apifox/1.0.0 (https://apifox.com)
+                - name: Accept
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: '*/*'
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip, deflate, br
+                - name: Account
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "2067089451"
+            operationId: e52f0f8acf4f3a256f9009d9841890f2-20250317213019
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                notifications:
+                                    items:
+                                        properties:
+                                            content:
+                                                type: string
+                                            recipient:
+                                                type: string
+                                            title:
+                                                type: string
+                                            type:
+                                                type: string
+                                            user_id:
+                                                type: number
+                                        type: object
+                                    type: array
+                        example:
+                            notifications:
+                                - content: Duis minim
+                                  recipient: 3253843484@qq.com
+                                  title: ' daniel shop'
+                                  type: dolore in Duis officia deserunt
+                                  user_id: 59
+            responses:
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                            example:
+                                error: 'Key: ''BatchNotificationRequest.Notifications[0].Type'' Error:Field validation for ''Type'' failed on the ''oneof'' tag'
+components: {}

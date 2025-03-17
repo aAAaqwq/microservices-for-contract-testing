@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+    title: test-7
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: 192.168.153.128:8084
+paths:
+    /api/v1/notifications/user/{param1}:
+        get:
+            summary: Auto-generated operation
+            description: Auto-generated from custom format
+            parameters:
+                - name: Account
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "2067089451"
+                - name: Authorization
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDY3MDg5NDUxIiwiYXVkIjoi5pmu6YCa55So5oi3IiwiaXNzIjoiQV9hIiwiZXhwIjoxNzE1MTcxMjY3fQ.f0rrG6zfk8bG56vXWV68bgOJgUpsorSXvkV9Vv19iUE
+                - name: Connection
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: keep-alive
+                - name: Host
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: 192.168.153.128:8084
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Apifox/1.0.0 (https://apifox.com)
+                - name: Username
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: A_a
+                - name: Accept
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: '*/*'
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip, deflate, br
+                - name: param1
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  example: "6"
+            operationId: 8f5bb0d002c6e879eb13b3921d9cf9bf-20250317213019
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    data:
+                                        items:
+                                            properties:
+                                                content:
+                                                    type: string
+                                                created_at:
+                                                    type: string
+                                                id:
+                                                    type: string
+                                                recipient:
+                                                    type: string
+                                                status:
+                                                    type: string
+                                                title:
+                                                    type: string
+                                                type:
+                                                    type: string
+                                                updated_at:
+                                                    type: string
+                                                user_id:
+                                                    type: number
+                                            type: object
+                                        type: array
+                            example:
+                                data:
+                                    - content: you have buy successfully
+                                      created_at: "2025-03-10T12:52:20.868Z"
+                                      id: 67cee08421a4448fb05613f4
+                                      recipient: 3253843484@qq.com
+                                      status: pending
+                                      title: buy hambergers
+                                      type: email
+                                      updated_at: "2025-03-10T12:52:20.868Z"
+                                      user_id: 6
+components: {}

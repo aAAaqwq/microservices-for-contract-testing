@@ -219,30 +219,57 @@ The notification service handles all notification sending functionalities in the
 
 ## Getting Started
 
-### Technology stack
-- Language: Go 1.23.3
-- Web framework: Gin
-- Database:
-  - PostgreSQL
-  - MySQL
-  - Redis
-  - Mongo
-- Containerization: Docker
-- API style: RESTful
-- Test framework: Keploy
-- Deployment: Docker Compose
 
-### Installation
-1. Clone the repository
-2. Run `docker compose up` to start all db-services
-3. Each service can also be run independently using their respective Dockerfiles or `go run main.go`
 
-### Keploy Contract Testing
-#### Testing
+### Preparation
+1. Clone the repository and enter the directory
+2. Install keploy-cli: 
+  ```
+  curl --silent -O -L https://keploy.io/install.sh && source install.sh
+  ```
+
+### Run app using docker
+Keploy can be used on Linux, Windows and MacOS through Docker.
+> Note: To run Keploy on MacOS through Docker the version must be 4.25.2 or above.
+1. Run `docker compose up` to start all db-instances
+2. Create the docker image for each service
+  ```
+  docker build -t user-service:1.0 ./user-service
+  ```
+  ```
+  docker build -t order-service:1.0 ./order-service
+  ```
+  ```
+  docker build -t payment-service:1.0 ./payment-service
+  ```
+  ```
+  docker build -t notification-service:1.0 ./notification-service
+  ```
+3. Run the docker images
+  ```
+  keploy record -c "docker run -p 8081:8081 userApp -n microservices-network user-service:1.0"
+  ```
+  ```
+  keploy record -c "docker run -p 8082:8082 orderApp -n microservices-network order-service:1.0"
+  ```
+  ```
+  keploy record -c "docker run -p 8083:8083 paymentApp -n microservices-network payment-service:1.0"
+  ```
+  ```
+  keploy record -c "docker run -p 8084:8084 notificationApp -n microservices-network notification-service:1.0"
+  ```
+  >Tips:Keploy can only record one service at a time. When you record a service, other services must be running.
+  
+  To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
+
+
+
+### Keploy Contract Testing Results Analysis
+<!-- #### Testing
 Each service includes contract tests using Keploy. To run the tests:
 1. Navigate to the service directory
 2. Run `keploy test -c "go run ." -d 10`
-3. If you want to see test coverage, run `keploy test -c ./<service-name> -d 10`
+3. If you want to see test coverage, run `keploy test -c ./<service-name> -d 10` -->
    
 #### My testing data
 - user-service
@@ -281,6 +308,20 @@ Each service includes contract tests using Keploy. To run the tests:
 - Use sonic tools for json processing to improve performance
 - Use snowflake algorithm for ID generation to improve uniqueness
 - ....
+
+
+### Technology stack
+- Language: Go 1.23.3
+- Web framework: Gin
+- Database:
+  - PostgreSQL
+  - MySQL
+  - Redis
+  - Mongo
+- Containerization: Docker
+- API style: RESTful
+- Test framework: Keploy
+- Deployment: Docker Compose
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details

@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+    title: test-4
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: localhost:8082
+paths:
+    /api/v1/orders/{param1}/status:
+        put:
+            summary: Update an employee by ID
+            description: Update an employee by ID
+            parameters:
+                - name: Content-Type
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: application/json
+                - name: Host
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: localhost:8082
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Go-http-client/1.1
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip
+                - name: Content-Length
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "22"
+                - name: param1
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  example: "2"
+            operationId: 265983498aa5c45f93963a5fbc660337-20250317211642
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                status:
+                                    type: string
+                        example:
+                            status: completed
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                            example:
+                                message: order status updated
+components: {}

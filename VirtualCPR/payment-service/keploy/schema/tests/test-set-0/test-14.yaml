@@ -1,0 +1,103 @@
+openapi: 3.0.0
+info:
+    title: test-14
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: 192.168.153.128:8083
+paths:
+    /api/v1/payments/{param1}/refund:
+        post:
+            summary: Auto-generated operation
+            description: Auto-generated from custom format
+            parameters:
+                - name: Account
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "2067089451"
+                - name: Content-Length
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "49"
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Apifox/1.0.0 (https://apifox.com)
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip, deflate, br
+                - name: Authorization
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDY3MDg5NDUxIiwiYXVkIjoi5pmu6YCa55So5oi3IiwiaXNzIjoiQV9hIiwiZXhwIjoxNzE1MTcxMjY3fQ.f0rrG6zfk8bG56vXWV68bgOJgUpsorSXvkV9Vv19iUE
+                - name: Connection
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: keep-alive
+                - name: Content-Type
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: application/json
+                - name: Host
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: 192.168.153.128:8083
+                - name: Username
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: A_a
+                - name: Accept
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: '*/*'
+                - name: param1
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  example: "3"
+            operationId: 3c368cf056f6f4ff153b445c452e64bb-20250317212718
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                reason:
+                                    type: string
+                        example:
+                            reason: cupidatat consequat Excepteur
+            responses:
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                            example:
+                                error: record not found
+components: {}

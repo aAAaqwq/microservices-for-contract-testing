@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+    title: test-7
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: 192.168.153.128:8083
+paths:
+    /api/v1/payments/{param1}:
+        get:
+            summary: Auto-generated operation
+            description: Auto-generated from custom format
+            parameters:
+                - name: Host
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: 192.168.153.128:8083
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Apifox/1.0.0 (https://apifox.com)
+                - name: Username
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: A_a
+                - name: Accept
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: '*/*'
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip, deflate, br
+                - name: Account
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "2067089451"
+                - name: Authorization
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMDY3MDg5NDUxIiwiYXVkIjoi5pmu6YCa55So5oi3IiwiaXNzIjoiQV9hIiwiZXhwIjoxNzE1MTcxMjY3fQ.f0rrG6zfk8bG56vXWV68bgOJgUpsorSXvkV9Vv19iUE
+                - name: Connection
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: keep-alive
+                - name: param1
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                  example: "36"
+            operationId: 2fd51856e4e468bb09d48121c2c8a957-20250317212718
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    amount:
+                                        type: number
+                                    created_at:
+                                        type: string
+                                    id:
+                                        type: number
+                                    order_id:
+                                        type: number
+                                    paid_at:
+                                        type: string
+                                    payment_type:
+                                        type: string
+                                    status:
+                                        type: string
+                                    updated_at:
+                                        type: string
+                                    user_id:
+                                        type: number
+                            example:
+                                amount: 66
+                                created_at: "2025-03-09T21:53:32.054635+08:00"
+                                id: 36
+                                order_id: 3
+                                paid_at: "0001-01-01T08:05:43+08:05"
+                                payment_type: wechat
+                                status: failed
+                                updated_at: "2025-03-09T21:53:34.066893+08:00"
+                                user_id: 2
+components: {}

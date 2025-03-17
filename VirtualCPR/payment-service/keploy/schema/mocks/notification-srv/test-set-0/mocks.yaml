@@ -1,0 +1,147 @@
+openapi: 3.0.0
+info:
+    title: mock-42
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: temp
+paths:
+    /api/v1/notifications:
+        post:
+            summary: Auto-generated operation
+            description: Auto-generated from custom format
+            parameters:
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip
+                - name: Content-Length
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "148"
+                - name: Content-Type
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: application/json
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Go-http-client/1.1
+            operationId: ff06af3486ffede912357daf3ccf3ac5-20250317212718
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                content:
+                                    type: string
+                                recipient:
+                                    type: string
+                                title:
+                                    type: string
+                                type:
+                                    type: string
+                                user_id:
+                                    type: number
+                        example:
+                            content: Your payment of 66.00 has been processed successfully
+                            recipient: ""
+                            title: 'Payment Success for Order #3'
+                            type: email
+                            user_id: 2
+            responses:
+                "400":
+                    description: ""
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                            example:
+                                error: 'Key: ''NotificationRequest.Recipient'' Error:Field validation for ''Recipient'' failed on the ''required'' tag'
+components: {}
+---
+openapi: 3.0.0
+info:
+    title: mock-87
+    version: api.keploy.io/v1beta1
+    description: Http
+servers:
+    - url: temp
+paths:
+    /api/v1/notifications:
+        post:
+            summary: Auto-generated operation
+            description: Auto-generated from custom format
+            parameters:
+                - name: Accept-Encoding
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: gzip
+                - name: Content-Length
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: "135"
+                - name: Content-Type
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: application/json
+                - name: User-Agent
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                  example: Go-http-client/1.1
+            operationId: 6e11219002932223a9537aa5ca85eb1c-20250317212718
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                content:
+                                    type: string
+                                recipient:
+                                    type: string
+                                title:
+                                    type: string
+                                type:
+                                    type: string
+                                user_id:
+                                    type: number
+                        example:
+                            content: Your refund of 66.00 has been processed
+                            recipient: ""
+                            title: 'Refund Processed for Order #3'
+                            type: email
+                            user_id: 2
+            responses:
+                "400":
+                    description: ""
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                            example:
+                                error: 'Key: ''NotificationRequest.Recipient'' Error:Field validation for ''Recipient'' failed on the ''required'' tag'
+components: {}
